@@ -1,0 +1,57 @@
+version: '3.4'
+
+x-base:
+  &baseimage
+  depends_on:
+    - 'redis'
+    - 'postgres'
+  build: .
+  image: local_basename:1.0
+  environment:
+    REDIS_URL: redis://redis:6379
+    DATABASE_URL: postgres://ror:JvHs6MbCGmzhHv@postgres:5432/ror_db
+    PORT: '8000'
+    RAILS_ENV: 'development'
+
+services:
+  rails:
+    <<: *baseimage
+    command: puma
+    expose:
+      - '8000'
+    ports:
+      - '8000:8000'
+    depends_on:
+      - 'migrations'
+
+  migrations:
+    <<: *baseimage
+    command: rake db:migrate
+
+  crono:
+    <<: *baseimage
+    command: bundle exec crono
+    depends_on:
+      - 'migrations'
+
+  sidekiq:
+    <<: *baseimage
+    command: sidekiq -c 1
+
+  redis:
+    image: 'redis:latest'
+    volumes:
+      - 'redis:/data'
+
+  postgres:
+    image: 'postgres:11'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'ror_db'
+      POSTGRES_USER: 'ror'
+      POSTGRES_PASSWORD: 'JvHs6MbCGmzhHv'
+
+volumes:
+  redis:
+  postgres:
