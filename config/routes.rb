@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => "/sidekiq"
 
+  # crono dashboard
+  require 'crono/web'
+  mount Crono::Web => "/crono"
+
   # Sidekiq trigger
   get "/dummy" => "dummy#index", as: "dummy_index"
   get "/dummy/report" => "dummy#report", as: "dummy_report"

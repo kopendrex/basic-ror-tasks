@@ -63,5 +63,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Sidekiq related
 gem 'sidekiq'
-gem 'sinatra'
+gem 'sinatra', require: nil
 gem 'jquery-rails'
+
+# Crono related
+gem 'crono'
+gem 'haml'
