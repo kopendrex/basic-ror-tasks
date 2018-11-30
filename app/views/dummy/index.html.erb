@@ -1,0 +1,21 @@
+<style>
+
+</style>
+
+<div id="wrapper">
+
+  <h1>Create A Dummy Report</h1>
+
+  <button class="generate-dummy-report">
+    GENERATE DUMMY REPORT
+  </button>
+
+  <div id="footer-javascripts">
+    <script type="text/javascript">
+      $("button.generate-dummy-report").on("click", function() {
+        window.location = "<%= dummy_report_url %>"
+      })
+    </script>
+  </div>
+
+</div>
