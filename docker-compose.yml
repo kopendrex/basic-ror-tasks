@@ -8,8 +8,6 @@ x-base:
   build: .
   image: local_basename:1.0
   environment:
-    REDIS_URL: redis://redis:6379
-    DATABASE_URL: postgres://ror:JvHs6MbCGmzhHv@postgres:5432/ror_db
     PORT: '8000'
     RAILS_ENV: 'development'
 
